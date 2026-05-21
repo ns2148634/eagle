@@ -12,6 +12,10 @@
             --text-dark: #333333;
         }
         
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+        
         body {
             font-family: 'Helvetica Neue', Arial, 'LiHei Pro', '微軟正黑體', sans-serif;
             margin: 0;
@@ -19,9 +23,10 @@
             color: var(--text-dark);
             background-color: var(--light-bg);
             line-height: 1.6;
+            -webkit-text-size-adjust: 100%;
         }
 
-        /* 導覽列 */
+        /* 導覽列：手機端支援水平滑動，防止擠壓變形 */
         nav {
             background-color: var(--primary-blue);
             position: fixed;
@@ -29,6 +34,8 @@
             top: 0;
             z-index: 1000;
             box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
         }
 
         nav ul {
@@ -36,133 +43,178 @@
             margin: 0;
             padding: 0;
             display: flex;
-            justify-content: center;
+            width: max-content;
+            min-width: 100%;
+            justify-content: space-around;
         }
 
         nav ul li a {
             display: block;
-            padding: 15px 20px;
+            padding: 15px 12px;
             color: white;
             text-decoration: none;
             font-weight: bold;
+            font-size: 14px;
+            white-space: nowrap;
             transition: background 0.3s;
         }
 
-        nav ul li a:hover {
+        nav ul li a:hover, nav ul li a:active {
             background-color: var(--primary-gold);
             color: var(--primary-blue);
         }
 
-        /* 頂部橫幅 */
+        /* 頂部橫幅：優化手機字型大小與間距 */
         header {
             background: linear-gradient(135deg, var(--primary-blue) 0%, #001f5c 100%);
             color: white;
-            padding: 120px 20px 60px;
+            padding: 90px 15px 40px;
             text-align: center;
             border-bottom: 5px solid var(--primary-gold);
         }
 
         header h1 {
-            font-size: 2.5em;
+            font-size: 1.8em;
+            margin-top: 0;
             margin-bottom: 10px;
             color: var(--primary-gold);
+            line-height: 1.3;
         }
 
         header h2 {
-            font-size: 1.5em;
+            font-size: 1.2em;
             margin-bottom: 20px;
+            font-weight: normal;
+            opacity: 0.9;
         }
 
         header p {
-            font-size: 1.2em;
+            font-size: 1em;
             background: rgba(255, 255, 255, 0.1);
-            display: inline-block;
-            padding: 10px 20px;
-            border-radius: 30px;
+            display: block;
+            padding: 12px 15px;
+            border-radius: 15px;
+            margin: 10px 0;
+            text-align: left;
+            word-break: break-all;
         }
 
-        /* 內容區塊共用設定 */
+        header .info-tag {
+            background: var(--primary-gold);
+            color: var(--primary-blue);
+            font-weight: bold;
+            text-align: center;
+            border-radius: 15px;
+        }
+
+        /* 內容區塊共用設定：縮小手機端外邊距 */
         section {
             max-width: 900px;
-            margin: 60px auto;
-            padding: 20px;
+            margin: 24px 12px;
+            padding: 16px;
             background: white;
             border-radius: 8px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
         }
 
         h2.section-title {
             color: var(--primary-blue);
             border-left: 5px solid var(--primary-gold);
-            padding-left: 15px;
-            margin-bottom: 30px;
+            padding-left: 10px;
+            margin-top: 0;
+            margin-bottom: 20px;
+            font-size: 1.4em;
         }
 
         /* 折疊選單 (典禮程序) */
         .accordion {
-            background-color: #eee;
+            background-color: #f1f3f5;
             color: var(--primary-blue);
             cursor: pointer;
-            padding: 18px;
+            padding: 14px;
             width: 100%;
             text-align: left;
             border: none;
             outline: none;
-            transition: 0.4s;
-            font-size: 1.1em;
+            transition: 0.3s;
+            font-size: 1em;
             font-weight: bold;
-            border-radius: 5px;
-            margin-bottom: 5px;
+            border-radius: 6px;
+            margin-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .accordion::after {
+            content: '▼';
+            font-size: 0.8em;
+            color: #aaa;
+        }
+
+        .active::after {
+            content: '▲';
+            color: var(--primary-blue);
         }
 
         .active, .accordion:hover {
-            background-color: var(--primary-gold);
-            color: #fff;
+            background-color: #e9ecef;
         }
 
         .panel {
-            padding: 0 18px;
+            padding: 0 8px;
             background-color: white;
             max-height: 0;
             overflow: hidden;
             transition: max-height 0.2s ease-out;
-            margin-bottom: 15px;
         }
 
         .panel ul {
             list-style-type: none;
             padding-left: 0;
+            margin: 0;
         }
 
         .panel ul li {
-            padding: 10px 0;
-            border-bottom: 1px dashed #ccc;
+            padding: 12px 0;
+            border-bottom: 1px dashed #eee;
+            font-size: 14px;
+            word-break: break-all;
         }
 
         /* 卡片設計 (沿革與服務) */
         .card-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
+            grid-template-columns: 1fr;
+            gap: 16px;
         }
 
         .card {
             background: var(--light-bg);
-            padding: 20px;
+            padding: 16px;
             border-radius: 8px;
             border-top: 4px solid var(--primary-blue);
-            transition: transform 0.3s, box-shadow 0.3s;
         }
 
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        .card h3 {
+            margin-top: 0;
+            margin-bottom: 12px;
+            font-size: 1.1em;
+            color: var(--primary-blue);
+        }
+
+        .service-list {
+            padding-left: 0;
+            margin: 0;
+            list-style: none;
         }
 
         .service-list li {
             margin-bottom: 10px;
             position: relative;
-            padding-left: 20px;
+            padding-left: 18px;
+            font-size: 14px;
+            word-break: break-all;
         }
         
         .service-list li::before {
@@ -177,9 +229,51 @@
             background-color: var(--primary-blue);
             color: white;
             text-align: center;
-            padding: 30px 20px;
-            margin-top: 50px;
+            padding: 24px 16px;
+            margin-top: 40px;
             border-top: 5px solid var(--primary-gold);
+            font-size: 13px;
+        }
+
+        /* 針對桌上型電腦或大螢幕的優化配置 */
+        @media (min-width: 768px) {
+            section {
+                margin: 40px auto;
+                padding: 24px;
+            }
+            header {
+                padding: 120px 20px 60px;
+            }
+            header h1 {
+                font-size: 2.5em;
+            }
+            header h2 {
+                font-size: 1.5em;
+            }
+            header p {
+                display: inline-block;
+                width: auto;
+                margin: 10px;
+                text-align: center;
+            }
+            .card-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .service-list.columns {
+                column-count: 2;
+                column-gap: 40px;
+            }
+            nav {
+                overflow-x: visible;
+            }
+            nav ul {
+                justify-content: center;
+                width: 100%;
+            }
+            nav ul li a {
+                padding: 15px 20px;
+                font-size: 16px;
+            }
         }
     </style>
 </head>
@@ -196,20 +290,20 @@
     </nav>
 
     <header id="home">
-        <h1>國際獅子會300A1區 台北市飛鷹獅子會</h1>
+        <h1>國際獅子會300A1區<br>台北市飛鷹獅子會</h1>
         <h2>授證二十一週年紀念慶典</h2>
-        <p>暨第二十一、二十二屆會長交接典禮<br>
-           與新加坡那森獅子會締盟二十週年紀念慶典<br>
-           馬來西亞檳城丹絨獅子會締盟十六週年紀念慶典</p>
-        <p style="margin-top: 20px; background: var(--primary-gold); color: var(--primary-blue); font-weight: bold;">
-            日期：115年5月29日(星期五) | 地點：茹曦酒店二樓宴會廳
+        <p>暨第二十一、二十二屆會長交接典禮</p>
+        <p>與新加坡那森獅子會締盟二十週年紀念慶典</p>
+        <p>馬來西亞檳城丹絨獅子會締盟十六週年紀念慶典</p>
+        <p class="info-tag">
+            日期：115年5月29日(星期五)<br>地點：茹曦酒店二樓宴會廳
         </p>
     </header>
 
     <section id="program">
         <h2 class="section-title">典禮程序</h2>
-        <p><strong>主席：</strong>第21屆會長 L.莊朝順 | <strong>第22屆會長：</strong>L.江承翰</p>
-        <p><strong>大會司儀：</strong>謝明忠 | <strong>貴賓介紹：</strong>L.卓家雄</p>
+        <p style="font-size: 14px; margin-bottom: 6px;"><strong>主席：</strong>第21屆會長 L.莊朝順 | <strong>第22屆會長：</strong>L.江承翰</p>
+        <p style="font-size: 14px; margin-top: 0;"><strong>大會司儀：</strong>謝明忠 | <strong>貴賓介紹：</strong>L.卓家雄</p>
 
         <button class="accordion">第一階段：典禮開始 (18:20 - 18:30)</button>
         <div class="panel">
@@ -248,7 +342,7 @@
                 <li>十九、獅子吼 (專區主席 L. 陳阿秀)</li>
                 <li>二十、主席鳴鐘宣佈閉會</li>
                 <li>二十一、禮成 19:30</li>
-                <li><strong>飛鷹之夜晚會：</strong>主持人 L.陳建霖、L. 高為人 (敘獎及晚宴)</li>
+                <li><strong>飛鷹之夜晚會：</strong><br>主持人 L.陳建霖、L. 高為人 (敘獎及晚宴)</li>
             </ul>
         </div>
     </section>
@@ -259,21 +353,21 @@
             <div class="card">
                 <h3>基本資料</h3>
                 <ul class="service-list">
-                    <li>會名:台北市飛鷹獅子會</li>
-                    <li>輔導母會:台北市榮皇獅子會</li>
-                    <li>政府立案字號:北市社會字第二五九二號</li>
-                    <li>統一編號:48966184</li>
-                    <li>現有會員人數37位</li>
+                    <li>會名：台北市飛鷹獅子會</li>
+                    <li>輔導母會：台北市榮皇獅子會</li>
+                    <li>政府立案字號：北市社會字第二五九二號</li>
+                    <li>統一編號：48966184</li>
+                    <li>現有會員人數 37 位</li>
                 </ul>
             </div>
             <div class="card">
                 <h3>重要日期與結盟</h3>
                 <ul class="service-list">
-                    <li>成立日期:中華民國94年7月15日</li>
-                    <li>授證日期:每年五月三十日</li>
-                    <li>導獅:張呂章前總監、姜寶珠前總監</li>
-                    <li>姐妹會:新加坡那森獅子會(2006結盟)、馬來西亞檳城丹絨獅子會(2010結盟)</li>
-                    <li>友好會:中國廣東藍天獅子會(於2012年友好)</li>
+                    <li>成立日期：中華民國94年7月15日</li>
+                    <li>授證日期：每年五月三十日</li>
+                    <li>導獅：張呂章前總監、姜寶珠前總監</li>
+                    <li>姐妹會：新加坡那森獅子會 (2006結盟)、馬來西亞檳城丹絨獅子會 (2010結盟)</li>
+                    <li>友好會：中國廣東藍天獅子會 (於2012年友好)</li>
                 </ul>
             </div>
         </div>
@@ -281,22 +375,22 @@
 
     <section id="services">
         <h2 class="section-title">2025-2026年度已完成社會服務</h2>
-        <p style="text-align: right; font-size: 1.2em; font-weight: bold; color: var(--primary-blue);">總金額: 365,250元</p>
-        <ul class="service-list" style="column-count: 2; column-gap: 40px;">
-            <li>樂捐300A1區社會服務金2萬元</li>
-            <li>捐贈 LCIF 美金1000元共32,000元</li>
-            <li>捐贈高爾夫球錦標賽社服金20,000元</li>
+        <p style="text-align: left; font-size: 1.1em; font-weight: bold; color: var(--primary-blue); margin-bottom: 16px;">總金額：365,250元</p>
+        <ul class="service-list columns">
+            <li>樂捐300A1區社會服務金 2萬元</li>
+            <li>捐贈 LCIF 美金1000元共 32,000元</li>
+            <li>捐贈高爾夫球錦標賽社服金 20,000元</li>
             <li>捐贈「減糖健走、環境保護公益活動」20,000元</li>
             <li>捐贈「老梅環保淨灘活動」15,000元</li>
-            <li>捐贈捐血袋650個共68,250元</li>
-            <li>捐贈巨獅雜誌社15,000元</li>
-            <li>瑞柑國小、瑞芳國中學生營養午餐社會服務5萬元</li>
-            <li>宜蘭順安國中足球隊隊服60,000元</li>
-            <li>樂水部落偏鄉生活物資20,000元</li>
-            <li>贊助A1區國際標準舞5000元</li>
-            <li>樂捐信華基金會20000元</li>
-            <li>樂捐反毒宣導社服金10,000元</li>
-            <li>樂捐第四專區社會服務金10,000元</li>
+            <li>捐贈捐血袋650個共 68,250元</li>
+            <li>捐贈巨獅雜誌社 15,000元</li>
+            <li>瑞柑國小、瑞芳國中學生營養午餐社會服務 5萬元</li>
+            <li>宜蘭順安國中足球隊隊服 60,000元</li>
+            <li>樂水部落偏鄉生活物資 20,000元</li>
+            <li>贊助A1區國際標準舞 5000元</li>
+            <li>樂捐信華基金會 20000元</li>
+            <li>樂捐反毒宣導社服金 10,000元</li>
+            <li>樂捐第四專區社會服務金 10,000元</li>
         </ul>
     </section>
 
@@ -322,7 +416,7 @@
             </div>
         </div>
 
-        <h3 style="margin-top: 40px; color: var(--primary-blue);">獅友八大信條</h3>
+        <h3 style="margin-top: 24px; margin-bottom: 12px; color: var(--primary-blue); font-size: 1.2em;">獅友八大信條</h3>
         <ul class="service-list">
             <li>一、忠於所事,勤勉敬業,竭誠服務,爭取榮譽。</li>
             <li>二、守正不阿,光明磊落,取之以道,追求成功。</li>
