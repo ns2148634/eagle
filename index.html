@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+html_v4_content = """<!DOCTYPE html>
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
@@ -141,7 +141,7 @@
             font-size: 1.4em;
         }
 
-        /* 會長介紹專區（新增） */
+        /* 會長介紹專區 - 改為高級感直式圓角矩形，防止切到人像 */
         .presidents-section {
             text-align: center;
         }
@@ -156,11 +156,12 @@
         }
         
         .president-avatar {
-            width: 140px;
-            height: 140px;
-            border-radius: 50%;
+            width: 160px;
+            height: 210px; /* 採用經典直式大頭照比例 (約3:4) */
+            border-radius: 8px; /* 改為圓角矩形，完整呈現頭部與肩膀 */
             object-fit: cover;
-            border: 4px solid var(--primary-blue);
+            object-position: center; /* 置中對齊 */
+            border: 3px solid var(--primary-blue);
             margin: 0 auto 12px;
             display: block;
             background-color: #fff;
@@ -366,7 +367,6 @@
     </nav>
 
     <header id="home">
-        <!-- Logo 擺放區塊 -->
         <div class="logo-container">
             <img src="logo-lions.png" alt="國際獅子會 Logo" class="logo-img">
             <img src="logo-flying-eagle.png" alt="台北市飛鷹獅子會 Logo" class="logo-img">
@@ -381,7 +381,6 @@
         </p>
     </header>
 
-    <!-- 新增：會長介紹專區 -->
     <section id="presidents" class="presidents-section">
         <h2 class="section-title">大會主席與會長</h2>
         <div class="presidents-container">
@@ -558,4 +557,9 @@
         }
     </script>
 </body>
-</html>
+</html>"""
+
+with open("index-v4.html", "w", encoding="utf-8") as f:
+    f.write(html_v4_content)
+
+print("V4 with portrait rectangles generated.")
