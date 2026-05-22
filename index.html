@@ -26,7 +26,7 @@
             -webkit-text-size-adjust: 100%;
         }
 
-        /* 導覽列：手機端支援水平滑動，防止擠壓變形 */
+        /* 導覽列 */
         nav {
             background-color: var(--primary-blue);
             position: fixed;
@@ -64,18 +64,33 @@
             color: var(--primary-blue);
         }
 
-        /* 頂部橫幅：優化手機字型大小與間距 */
+        /* 頂部橫幅 */
         header {
             background: linear-gradient(135deg, var(--primary-blue) 0%, #001f5c 100%);
             color: white;
-            padding: 90px 15px 40px;
+            padding: 100px 15px 40px;
             text-align: center;
             border-bottom: 5px solid var(--primary-gold);
         }
 
+        /* Logo 區塊配置 */
+        .logo-container {
+            display: block;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .logo-img {
+            height: 70px;
+            width: auto;
+            margin: 0 10px;
+            vertical-align: middle;
+            display: inline-block;
+        }
+
         header h1 {
             font-size: 1.8em;
-            margin-top: 0;
+            margin-top: 10px;
             margin-bottom: 10px;
             color: var(--primary-gold);
             line-height: 1.3;
@@ -107,7 +122,7 @@
             border-radius: 15px;
         }
 
-        /* 內容區塊共用設定：縮小手機端外邊距 */
+        /* 內容區塊共用設定 */
         section {
             max-width: 900px;
             margin: 24px 12px;
@@ -124,6 +139,45 @@
             margin-top: 0;
             margin-bottom: 20px;
             font-size: 1.4em;
+        }
+
+        /* 會長介紹專區（新增） */
+        .presidents-section {
+            text-align: center;
+        }
+        
+        .president-card {
+            background: var(--light-bg);
+            border-radius: 12px;
+            padding: 20px 15px;
+            margin-bottom: 20px;
+            border: 1px solid #eee;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+        }
+        
+        .president-avatar {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--primary-blue);
+            margin: 0 auto 12px;
+            display: block;
+            background-color: #fff;
+        }
+        
+        .president-title {
+            font-size: 0.9em;
+            color: #666;
+            margin: 4px 0;
+            font-weight: bold;
+        }
+        
+        .president-name {
+            font-size: 1.3em;
+            color: var(--primary-blue);
+            margin: 0 0 5px 0;
+            font-weight: bold;
         }
 
         /* 折疊選單 (典禮程序) */
@@ -184,9 +238,7 @@
 
         /* 卡片設計 (沿革與服務) */
         .card-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 16px;
+            display: block;
         }
 
         .card {
@@ -194,6 +246,7 @@
             padding: 16px;
             border-radius: 8px;
             border-top: 4px solid var(--primary-blue);
+            margin-bottom: 16px;
         }
 
         .card h3 {
@@ -235,14 +288,14 @@
             font-size: 13px;
         }
 
-        /* 針對桌上型電腦或大螢幕的優化配置 */
+        /* 桌上型電腦或大螢幕的優化配置 */
         @media (min-width: 768px) {
             section {
                 margin: 40px auto;
                 padding: 24px;
             }
             header {
-                padding: 120px 20px 60px;
+                padding: 130px 20px 60px;
             }
             header h1 {
                 font-size: 2.5em;
@@ -256,8 +309,26 @@
                 margin: 10px;
                 text-align: center;
             }
+            
+            /* 會長卡片改為並排 */
+            .presidents-container {
+                display: flex;
+                justify-content: center;
+                gap: 30px;
+            }
+            .president-card {
+                flex: 1;
+                max-width: 280px;
+                margin-bottom: 0;
+            }
+            
             .card-grid {
-                grid-template-columns: repeat(2, 1fr);
+                display: flex;
+                gap: 20px;
+            }
+            .card {
+                flex: 1;
+                margin-bottom: 0;
             }
             .service-list.columns {
                 column-count: 2;
@@ -274,6 +345,10 @@
                 padding: 15px 20px;
                 font-size: 16px;
             }
+            .logo-img {
+                height: 90px;
+                margin: 0 15px;
+            }
         }
     </style>
 </head>
@@ -282,6 +357,7 @@
     <nav>
         <ul>
             <li><a href="#home">首頁</a></li>
+            <li><a href="#presidents">大會主席</a></li>
             <li><a href="#program">典禮程序</a></li>
             <li><a href="#history">本會沿革</a></li>
             <li><a href="#services">社會服務</a></li>
@@ -290,6 +366,11 @@
     </nav>
 
     <header id="home">
+        <!-- Logo 擺放區塊 -->
+        <div class="logo-container">
+            <img src="logo-lions.png" alt="國際獅子會 Logo" class="logo-img">
+            <img src="logo-flying-eagle.png" alt="台北市飛鷹獅子會 Logo" class="logo-img">
+        </div>
         <h1>國際獅子會300A1區<br>台北市飛鷹獅子會</h1>
         <h2>授證二十一週年紀念慶典</h2>
         <p>暨第二十一、二十二屆會長交接典禮</p>
@@ -299,6 +380,23 @@
             日期：115年5月29日(星期五)<br>地點：茹曦酒店二樓宴會廳
         </p>
     </header>
+
+    <!-- 新增：會長介紹專區 -->
+    <section id="presidents" class="presidents-section">
+        <h2 class="section-title">大會主席與會長</h2>
+        <div class="presidents-container">
+            <div class="president-card">
+                <img src="president-21.png" alt="第二十一屆會長 莊朝順" class="president-avatar">
+                <div class="president-title">第二十一屆會長 / 大會主席</div>
+                <div class="president-name">莊朝順 獅友</div>
+            </div>
+            <div class="president-card">
+                <img src="president-22.png" alt="第二十二屆會長 江承翰" class="president-avatar">
+                <div class="president-title">第二十二屆會長</div>
+                <div class="president-name">江承翰 獅友</div>
+            </div>
+        </div>
+    </section>
 
     <section id="program">
         <h2 class="section-title">典禮程序</h2>
@@ -389,7 +487,7 @@
             <li>樂水部落偏鄉生活物資 20,000元</li>
             <li>贊助A1區國際標準舞 5000元</li>
             <li>樂捐信華基金會 20000元</li>
-            <li>樂捐反毒宣導社服金 10,000元</li>
+            <li>樂捐反毒宣宣導社服金 10,000元</li>
             <li>樂捐第四專區社會服務金 10,000元</li>
         </ul>
     </section>
@@ -418,7 +516,7 @@
 
         <h3 style="margin-top: 24px; margin-bottom: 12px; color: var(--primary-blue); font-size: 1.2em;">獅友八大信條</h3>
         <ul class="service-list">
-            <li>一、忠於所事,勤勉敬業,竭誠服務,爭取榮譽。</li>
+            <li>一、忠於所事,勤慢敬業,竭誠服務,爭取榮譽。</li>
             <li>二、守正不阿,光明磊落,取之以道,追求成功。</li>
             <li>三、誠以待人,嚴以律己,自求奮進,毋損他人。</li>
             <li>四、犧牲小我,顧全大局,爭論無益,忠恕是從。</li>
